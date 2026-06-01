@@ -4,98 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR App Store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
-        .app-header{
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #F3F4F6;
+            min-height: 100vh;
+        }
+
+        .store-wrap {
+            padding: 0 0 28px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .store-hero {
+            background: linear-gradient(135deg, #6C3BE8 0%, #3B82F6 50%, #06B6D4 100%);
+            padding: 32px 20px 28px;
+            text-align: center;
+            border-radius: 0 0 28px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-hero::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.08);
+        }
+
+        .store-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; left: -20px;
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.06);
+        }
+
+        .store-hero h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .store-hero p {
+            font-size: 14px;
+            color: rgba(255,255,255,.8);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-wrap {
+            position: relative;
+            margin: 0 4px;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 13px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #888;
+            pointer-events: none;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 11px 14px 11px 40px;
+            border-radius: 14px;
+            border: none;
+            background: #fff;
+            font-size: 15px;
+            color: #222;
+            outline: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,.15);
+        }
+
+        .dot-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.4);
+        }
+
+        .dot.active {
+            background: #fff;
+            width: 18px;
+            border-radius: 3px;
+        }
+
+        .body-pad { padding: 20px 16px 0; }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .app-card {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 14px;
+            background: #fff;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 14px 16px;
+            cursor: pointer;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform .12s;
         }
-        .app-header2{
+
+        .app-card:active { transform: scale(.98); }
+
+        .app-icon {
+            width: 58px; height: 58px;
+            border-radius: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .icon-green { background: linear-gradient(135deg, #22C55E, #16A34A); }
+        .icon-blue  { background: linear-gradient(135deg, #3B82F6, #6366F1); }
+
+        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+        .app-info { flex: 1; min-width: 0; }
+
+        .app-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .app-sub { font-size: 13px; color: #6B7280; }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .badge-free { background: #DCFCE7; color: #166534; }
+        .badge-edu  { background: #EDE9FE; color: #5B21B6; }
+
+        .app-arrow { color: #9CA3AF; font-size: 18px; flex-shrink: 0; }
+
+        .no-result {
+            text-align: center;
+            padding: 40px 0;
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        .no-result i {
+            font-size: 36px;
+            display: block;
             margin-bottom: 10px;
+            opacity: .4;
         }
-
-        .app-title-block{
-            margin-left:0%;
-        }
-        .app-title-block2{
-            margin-left: 0%;
-        }
-
-        .card{
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 8px;
-        width: 300px        }
-
-.card{
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    width: 300px;
-    
-  
-}
-
     </style>
-   
 </head>
 <body>
 
-    <header>  <h1>AR App Store</h1></header>
+<div class="store-wrap">
 
-    
-    <div class="container">
-        <input type="text"
-        class="search-box" placeholder="Search App..." onkeyup="filterApps()">
-      
-
-        <br>
-        <br>
-
-   <div class="card" onclick="window.location.href='paisabachao.html'">  
- <div class="app-header">
-
- <img  style="width: 70px; height:auto" src="bhandar.png" alt="Paisa Bachao Logo">
-
- <div class="app-title-block">
-    <h3>Paisa Bachao</h3>
- </div>
-   </div>
+    <div class="store-hero">
+        <h1>AR App Store</h1>
+        <p>সেরা অ্যাপগুলো এক জায়গায়</p>
+        <div class="search-wrap">
+            <i class="ti ti-search"></i>
+            <input class="search-box" type="text" placeholder="অ্যাপ খুঁজুন..." oninput="filterApps(this.value)" />
+        </div>
+        <div class="dot-row">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
     </div>
 
-   <br>
+    <div class="body-pad">
+        <div class="section-label" style="margin-top:4px">সব অ্যাপ</div>
 
-    <div class="card" onclick="window.location.href='psc.html'">
-        <div class="app-header2">
-            <img style="width: 60px; height:auto" src="psc.image.png" alt="PSC LOGO">
-            <div class="app-title-block2">
-             <h3 >PSC-Pathan Study Center</h3>
-            </div>
+        <div class="app-list" id="appList">
+
+            <a class="app-card" href="paisabachao.html">
+                <div class="app-icon icon-green">
+                    <img src="bhandar.png" alt="Paisa Bachao"
+                         onerror="this.style.display='none';this.parentElement.innerHTML='💰'" />
+                </div>
+                <div class="app-info">
+                    <div class="app-name">Paisa Bachao</div>
+                    <div class="app-sub">খরচ ও সঞ্চয় ট্র্যাকার</div>
+                    <span class="badge badge-free">ফ্রি</span>
+                </div>
+                <i class="ti ti-chevron-right app-arrow"></i>
+            </a>
+
+            <a class="app-card" href="psc.html">
+                <div class="app-icon icon-blue">
+                    <img src="psc.image.png" alt="PSC"
+                         onerror="this.style.display='none';this.parentElement.innerHTML='📚'" />
+                </div>
+                <div class="app-info">
+                    <div class="app-name">PSC-Pathan Study Center</div>
+                    <div class="app-sub">পড়াশোনার সেরা সঙ্গী</div>
+                    <span class="badge badge-edu">শিক্ষামূলক</span>
+                </div>
+                <i class="ti ti-chevron-right app-arrow"></i>
+            </a>
 
         </div>
-         </div>  
-   </div>
+
+        <div class="no-result" id="noResult" style="display:none">
+            <i class="ti ti-search"></i>
+            কোনো অ্যাপ পাওয়া যায়নি
+        </div>
+    </div>
+
+</div>
 
 <script>
-    function filterApps(){
-        let filter = document.querySelector('.search-box').value.toLowerCase();
-        let apps = document.getElementsByClassName('card')
-        for(let i=0; i<apps.length; i++){
-            let appTitle =apps[i].querySelector('h3').innerText.toLowerCase();
-            if(appTitle.includes(filter)){
-                apps[i].style.display = "";
-                        
-        }else{
-            apps[i].style.display ="none";
-        }
-    }
+    function filterApps(v) {
+        var q = v.toLowerCase();
+        var cards = document.querySelectorAll('.app-card');
+        var n = 0;
+        cards.forEach(function(c) {
+            var t = c.querySelector('.app-name').textContent.toLowerCase();
+            if (t.includes(q)) { c.style.display = ''; n++; }
+            else { c.style.display = 'none'; }
+        });
+        document.getElementById('noResult').style.display = n === 0 ? '' : 'none';
     }
 </script>
-
 
 </body>
 </html>
