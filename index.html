@@ -25,17 +25,19 @@
             margin-left: 0%;
         }
 
-        .card1{
+        .card{
             border: 1px solid #ccc;
             padding: 15px;
             border-radius: 8px;
         width: 300px        }
 
-.card2{
+.card{
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 8px;
     width: 300px;
+    
+  
 }
 
     </style>
@@ -48,53 +50,52 @@
     
     <div class="container">
         <input type="text"
-        class="search"
-        placeholder="Search App...">
+        class="search-box" placeholder="Search App..." onkeyup="filterApps()">
+      
 
         <br>
         <br>
 
-   <div class="card1">  
+   <div class="card" onclick="window.location.href='paisabachao.html'">  
  <div class="app-header">
 
- <img  style="width: 50px; height:auto" src="bhandar.png" alt="Paisa Bachao Logo">
+ <img  style="width: 70px; height:auto" src="bhandar.png" alt="Paisa Bachao Logo">
 
  <div class="app-title-block">
     <h3>Paisa Bachao</h3>
  </div>
    </div>
-    <button style="width: 100px; height: 30px; " onclick="window.location.href='paisabachao.html'">
-       Install
-    </button>
-    
-
-   </div>
+    </div>
 
    <br>
 
-    <div class="card2">
+    <div class="card" onclick="window.location.href='psc.html'">
         <div class="app-header2">
-            <img style="width: 50px; height:auto" src="psc.image.png" alt="PSC LOGO">
+            <img style="width: 60px; height:auto" src="psc.image.png" alt="PSC LOGO">
             <div class="app-title-block2">
-                <h3>PSC- Pathan Study Center</h3>
+             <h3 >PSC-Pathan Study Center</h3>
             </div>
 
         </div>
-            <div>
- <button style="width: 100px; height: 30px;" onclick="window.location.href='psc.html'">
-Install
-            </button>
+         </div>  
+   </div>
 
-            </div>
-            
-       
+<script>
+    function filterApps(){
+        let filter = document.querySelector('.search-box').value.toLowerCase();
+        let apps = document.getElementsByClassName('card')
+        for(let i=0; i<apps.length; i++){
+            let appTitle =apps[i].querySelector('h3').innerText.toLowerCase();
+            if(appTitle.includes(filter)){
+                apps[i].style.display = "";
+                        
+        }else{
+            apps[i].style.display ="none";
+        }
+    }
+    }
+</script>
 
 
-
-   
-</div>
-   
-</div>
-    
 </body>
 </html>
